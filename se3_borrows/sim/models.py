@@ -14,7 +14,7 @@ class Sim(models.Model):
     title = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
     operate = models.CharField(max_length=10, null=True, choices=settings.OPERATE_CHOICES)
-    status = models.CharField(max_length=2, null=True, choices=settings.STATUS_CHOICES)
+    status = models.CharField(max_length=1, null=True, choices=settings.STATUS_CHOICES)
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
@@ -28,4 +28,4 @@ class Sim(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.number.encode('utf8')

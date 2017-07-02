@@ -3,17 +3,26 @@
 {# Load the tag library #} 
 {% load bootstrap3 %}
 
+{% load static %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% endblock %}
+
 {% block content %}
 <h1 class="page-header">{% bootstrap_icon "star" %} Sim卡總覽 </h1>
 <div>
-    <a id="add_row" class="btn btn-default pull-right" href="{% url 'sim:sim_new' %}">新增一筆</a>
+	<a class="btn icon-btn btn-primary pull-right" href="/sim/new">
+		<span class="glyphicon btn-glyphicon glyphicon-plus img-circle"></span> 
+		Sim卡入檔
+	</a>
 </div>
 <div>
     <table class="table table-bordred table-striped">
         <thead>
             <tr>
                 <th>Sim卡號碼</th>
-                <th>用途</th>
+                <th>借用狀態</th>
                 <th>電信商</th>
                 <th></th>
             </tr>
