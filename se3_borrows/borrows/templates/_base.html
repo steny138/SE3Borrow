@@ -1,0 +1,64 @@
+{# Load the tag library #} 
+{% load bootstrap3 %} 
+
+{# Load CSS and JavaScript #} 
+{% bootstrap_css %} 
+{% bootstrap_javascript jquery=True %} 
+
+{# Display django.contrib.messages as Bootstrap alerts #} 
+{% bootstrap_messages %} 
+
+{% load static %}
+<html>
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>靠杯喔</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">SE3 借東西大會</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li> -->
+                </ul>
+                <!-- <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form> -->
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/">Overview <span class="sr-only">(current)</span></a></li>
+                <li class=""><a href="/borrow">跟我借東西吧</a></li>
+                <li class="active"><a href="/sim">我有好多卡喔</a></li>
+                <li class="hidden"><a href="">Analytics</a></li>
+                <li class="hidden"><a href="/view">Export</a></li>
+            </ul>
+            <ul class="nav nav-sidebar hidden">
+                <li><a href="">Nav item</a></li>
+                <li><a href="">Nav item again</a></li>
+            </ul>
+        </div>
+        <div id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>

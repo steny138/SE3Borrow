@@ -1,0 +1,43 @@
+{% extends "_base.html" %} 
+
+{# Load the tag library #} 
+{% load bootstrap3 %}
+
+{% block content %}
+<h1 class="page-header">
+                {% bootstrap_label "歡迎！" %}
+            </h1>
+<div>
+    {% bootstrap_icon "star" %} 這是無聊做的
+</div>
+<div>
+	<table class="table table-striped">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>地點</th>
+                <th>地址</th>
+                <!-- <th>電話</th> -->
+                <!-- <th>詳細說明</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for view in borrow %}
+            <tr>
+                <td>
+                    {% if view.homepage %}
+                        <a target="blank" href="{{view.homepage}}">{{view.name}}</a>
+                    {% else %}
+                        {{view.name}}
+                    {% endif %}
+                </td>
+                <td>{{view.location}}</td>
+                <td>{{view.address}}</td>
+                <!-- <td>{{view.contact}}</td> -->
+                <!-- <td>{{view.description}}</td> -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
