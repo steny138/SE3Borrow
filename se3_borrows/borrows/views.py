@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.contrib import messages 
+from django.contrib import messages,auth
 from django.db.models import Count
 
 from borrows.models import Borrower
@@ -16,9 +16,11 @@ from sim.models import Sim
 
 from collections import defaultdict
 
+@login_required
 def borrow(request):
-    if not request.user.is_superuser:
-        data = Borrower.objects.filter(user=request.user)
+    current_user = auth.get_user(request)
+    if not current_user.is_superuser:
+        data = Borrower.objects.filter(user=current_user)
     else:
         data = Borrower.objects.all()
     
