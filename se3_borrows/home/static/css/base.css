@@ -94,6 +94,17 @@ body {
   margin-top: 0;
 }
 
+body > div.alert !important{
+  padding: 200px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+body >.alert {
+    padding-right: 40px;
+    padding-left: 400px;
+  }
+}
+
 
 /*
  * Placeholder dashboard ideas

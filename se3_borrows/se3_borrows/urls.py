@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^borrow/', include('borrows.urls', namespace='borrows')),
    	url(r'^sim/', include('sim.urls', namespace='sim')),
+   	url(r'^accounts/login/','home.views.login', name="login"),
+   	url(r'^accounts/logout/','home.views.logout', name="logout"),
     url(r'$', 'home.views.index'),
 ]
 
