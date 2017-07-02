@@ -33,9 +33,6 @@ def borrow(request):
 
 @login_required
 def borrow_add(request):
-    if request.user.is_authenticated():
-        print request.user.username
-
     form = BorrowForm(request.POST or None)
     if form.is_valid():
         borrower = form.save(commit=False)
@@ -43,11 +40,9 @@ def borrow_add(request):
         borrower.sim = Sim.objects.get(number= form.cleaned_data["number"])
         try:
             borrower.save()
-
             sim = Sim.objects.get(number= form.cleaned_data["number"])
             sim.status = "2"
             sim.save()
-
         except DatabaseError:
             messages.error(request, "資料庫發生錯誤，請稍後再試！")
         except TransactionManagementError:
@@ -56,8 +51,32 @@ def borrow_add(request):
         return redirect('/borrow/')
     return render(request, 'borrow_new.html', {'form':form})
 
-def borrow_update(request):
-    return render(request, 'borrow_new.html', {})
+@login_required
+def borrow_update(request, pk):
+    borrow= get_object_or_404(Borrower, pk=pk)
+    form = BorrowForm(request.POST or None, instance=borrow)
 
-def borrow_delete(request):
-    return render(request, 'borrow_new.html', {})
+    form.fields['number'].queryset = Sim.objects.filter(number=borrow.sim.number).all()
+    form.fields['number'].empty_label = None
+
+    if form.is_valid():
+        form.save()
+        return redirect('/borrow/')
+    return render(request, 'borrow_new.html', {'form':form})
+
+@login_required
+def borrow_delete(request, pk):
+    borrow= get_object_or_404(Borrower, pk=pk)
+    form = BorrowForm(request.POST or None, instance=borrow)
+
+    form.fields['number'].queryset = Sim.objects.filter(number=borrow.sim.number).all()
+    form.fields['number'].empty_label = None
+
+    if request.method=='POST' and form.is_valid():
+        borrow.delete()
+        sim = Sim.objects.get(number= form.cleaned_data["number"])
+        sim.status = "1"
+        sim.save()
+
+        return redirect('/borrow/')
+    return render(request, 'borrow_new.html', {'form':form})

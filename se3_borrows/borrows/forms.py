@@ -35,3 +35,10 @@ class BorrowForm(ModelForm):
     class Meta:
         model = Borrower
         fields = ['number',"purpose","purpose_other"]
+
+    # def __init__(self,  *args,  **kwargs):
+    #     super(BorrowForm, self).__init__(*args, **kwargs) 
+    #     self.fields['number'].queryset = Sim.objects.none()
+    #     if 'number' in self.data:
+    #         self.fields['number'].queryset = Sim.objects.filter(number=self.data['number']).all()
+
