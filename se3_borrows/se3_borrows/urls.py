@@ -15,14 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from borrows.views import index, borrow, sim, sim_add, sim_update, sim_delete
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^borrow/', borrow),
-    url(r'^sim/new', sim_add, name='sim_new'),
-    url(r'^sim/delete/(?P<pk>\d+)$', sim_delete, name='sim_delete'),
-    url(r'^sim/(?P<pk>\d+)$', sim_update, name='sim_update'),
-    url(r'^sim', sim),
-    url(r'$', index),
+    url(r'^borrow/', include('borrows.urls', namespace='borrows')),
+   	url(r'^sim/', include('sim.urls', namespace='sim')),
+    url(r'$', 'home.views.index'),
 ]
+

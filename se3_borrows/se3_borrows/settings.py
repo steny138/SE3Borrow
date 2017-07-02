@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'borrows',
+    'home',
+    'sim',
     'bootstrap3',
 )
 

@@ -6,7 +6,7 @@
 {% block content %}
 <h1 class="page-header">{% bootstrap_icon "star" %} Sim卡總覽 </h1>
 <div>
-    <a id="add_row" class="btn btn-default pull-right" href="{% url 'sim_new' %}">新增一筆</a>
+    <a id="add_row" class="btn btn-default pull-right" href="{% url 'sim:sim_new' %}">新增一筆</a>
 </div>
 <div>
     <table class="table table-bordred table-striped">
@@ -21,17 +21,17 @@
         <tbody>
             {% for sim in sim_cards %}
             <tr>
-                <td><a target="blank" href="{% url 'sim_update' sim.sim_id %}">{{sim.number}}</a></td>
+                <td><a target="blank" href="{% url 'sim:sim_update' sim.sim_id %}">{{sim.number}}</a></td>
                 <td>{{sim.get_status_display}}</td>
                 <td>{{ sim.get_operate_display }}</td>
 
                 <td>
-                    <a class="btn" href="{% url 'sim_update' sim.sim_id %}">
+                    <a class="btn" href="{% url 'sim:sim_update' sim.sim_id %}">
                         <button class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#edit" >
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                     </a>
-                    <a class="btn" href="{% url 'sim_delete' sim.sim_id %}">
+                    <a class="btn" href="{% url 'sim:sim_delete' sim.sim_id %}">
                         <button class="btn btn-danger btn-sm" data-title="Delete" data-toggle="modal" data-target="#delete" >
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
