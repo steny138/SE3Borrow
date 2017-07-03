@@ -95,3 +95,100 @@ Web 框架
 	```
 	python manage.py migrate
 	```
+3. 找不到auth_user
+
+	```
+	python manage.py migrate auth
+	```
+	再執行 python manage.py migrate 就好
+---
+
+### Django Project Deploy To Heroku Platform With Github.
+1. 先準備heroku要看的發布設定檔 "Procfile" 檔名就是這樣 沒有附檔名!沒有附檔名!沒有附檔名!
+並輸入以下內容
+```
+web: gunicorn myproject.wsgi --log-file -
+```
+
+> 參考用: foreman 可以讓你local 去執行你要建立在Heroku的app
+> Gunicorn是一个高效的Python WSGI Server,通常用它執行wsgi application
+
+2. 相關安裝項目參考
+```
+dj-database-url==0.4.2
+Django==1.8.18
+django-bootstrap3==8.2.3
+gunicorn==19.7.1
+psycopg2==2.7.1
+pytz==2017.2
+whitenoise==3.3.0
+
+pip freeze > requirements.txt
+```
+
+3. 準備runtime.txt 指定heroku 運行的python version
+文件內輸入以下內容
+```
+python-2.7.13
+```
+
+4. settings.py
+```
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+# SIMPLIFIED STATIC FILE SERVING.
+# HTTPS://WAREHOUSE.PYTHON.ORG/PROJECT/WHITENOISE/
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+```
+
+5. wsgi.py
+```
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "se3_borrows.settings")
+
+from whitenoise.django import DjangoWhiteNoise
+
+
+application = DjangoWhiteNoise(get_wsgi_application())
+```
+
+!注意 ```from whitenoise.django import DjangoWhiteNoise``` 必須要在
+```os.environ.setdefault("DJANGO_SETTINGS_MODULE", "se3_borrows.settings")```
+的下一行，不然會web crash
+
+
+6. 相關 heroku指令
+```
+$ heroku login
+$ git push heroku master
+$ heroku open
+
+$ heroku run python manage.py migrate auth
+$ heroku run python manage.py makemigrations
+$ heroku run python manage.py migrate
+
+$ heroku run python manage.py createsuperuser
+$ heroku git:clone -a myapp
+```
+
