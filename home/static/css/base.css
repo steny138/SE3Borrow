@@ -7,6 +7,20 @@ body {
   padding-top: 50px;
 }
 
+.errorlist {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+}
+.errorlist li{
+	list-style-type:none;
+}
 
 .navbar {
 	background-color: #428bca;
