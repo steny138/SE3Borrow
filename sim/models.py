@@ -28,4 +28,4 @@ class Sim(models.Model):
         self.save()
 
     def __str__(self):
-        return self.number.encode('utf8')
+        return self.get_operate_display().encode('utf8') + "-" + self.number.encode('utf8')
