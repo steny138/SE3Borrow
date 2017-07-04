@@ -35,12 +35,13 @@ def borrow(request):
 def borrow_add(request):
     form = BorrowForm(request.POST or None)
     if form.is_valid():
+    	num = form.cleaned_data["number"].split('-')[1]
         borrower = form.save(commit=False)
         borrower.user = request.user 
-        borrower.sim = Sim.objects.get(number= form.cleaned_data["number"])
+        borrower.sim = Sim.objects.get(number=num)
         try:
             borrower.save()
-            sim = Sim.objects.get(number= form.cleaned_data["number"])
+            sim = Sim.objects.get(number=num)
             sim.status = "2"
             sim.save()
         except DatabaseError:
