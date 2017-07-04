@@ -26,14 +26,13 @@
                 </button>
                 <a class="navbar-brand" href="#">SE3 借東西大會</a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Help</a></li> -->
+                    <li class="active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
+	                <li><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
+	                <li><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
                 </ul>
-                <!-- <form class="navbar-form navbar-right">
+               <!--  <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
                 </form> -->
             </div>
@@ -42,9 +41,9 @@
     <div class="container-fluid">
         <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="/">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a data-category="borrow" href="/borrow/">跟我借東西吧</a></li>
-                <li><a data-category="sim" href="/sim/">我有好多卡喔</a></li>
+                <li class="active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
+                <li><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
+                <li><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
             </ul>
             <ul class="nav nav-sidebar hidden">
                 <li><a href="">Nav item</a></li>
@@ -60,6 +59,17 @@
         $(function(){
             var current = location.pathname;
             $('#sidebar ul.nav li').removeClass('active');
+            $('#navbar ul.navbar-right li').removeClass('active');
+
+            $('#navbar ul.navbar-right li a').each(function(){
+                var $this = $(this);
+                // if the current path is like this link, make it active
+                if(current.indexOf($this.data('category')) !== -1){
+                    $this.parent().addClass('active');
+                    return false;
+                }
+            });
+
             $('#sidebar ul.nav li a').each(function(){
                 var $this = $(this);
                 // if the current path is like this link, make it active
@@ -69,8 +79,14 @@
                 }
             });
             
+            if($('#navbar ul.navbar-right li.active').length < 1)
+            {
+            	$('#navbar ul.navbar-right li:first').addClass('active');
+            }
+
             if($('#sidebar ul.nav li.active').length < 1)
             {
+            	$('#navbar ul.navbar-right li:first').addClass('active');
                 $('#sidebar ul.nav li:first').addClass('active');
             }
         })
