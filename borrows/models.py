@@ -19,6 +19,7 @@ class Borrower(models.Model):
 
     created_date = models.DateTimeField(
             default=timezone.now)
+    rent_date = models.DateTimeField(null=True)
     borrow_date = models.DateTimeField(null=True)
     
     published_date = models.DateTimeField(

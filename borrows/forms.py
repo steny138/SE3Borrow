@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from borrows.models import Borrower
 
 from django.forms import ModelForm
+from django.forms.extras import SelectDateWidget
 from django import forms
 
 from home import settings
@@ -32,9 +33,22 @@ class BorrowForm(ModelForm):
         required=True)
 
     purpose_other = forms.CharField(label='其他原因', required=False)
+    rent_date = forms.DateField(label="租借日",
+        widget=SelectDateWidget(
+            empty_label=("Choose Year", "Choose Month", "Choose Day"),
+        ), 
+        required=True
+    )
+    borrow_date = forms.DateField(label="到期日",
+        widget=SelectDateWidget(
+            empty_label=("Choose Year", "Choose Month", "Choose Day"),
+        ), 
+        required=True
+    )
+
     class Meta:
         model = Borrower
-        fields = ['number',"purpose","purpose_other"]
+        fields = ['number',"purpose","purpose_other","rent_date","borrow_date"]
 
     # def __init__(self,  *args,  **kwargs):
     #     super(BorrowForm, self).__init__(*args, **kwargs) 
