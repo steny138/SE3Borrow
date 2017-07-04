@@ -42,7 +42,7 @@
                         </div>
                         <div class='col-lg-12'>
                             <p>原因：{{ card.reason }}</p>
-                            <p class="text-muted">租借日：{{ card.create_date }}</p>
+                            <p class="text-muted">租借日：{{ card.rent_date }}</p>
                             <p class="text-muted">到期日：{{ card.borrow_date }}</p>
                         </div>
                         <a href="{% url 'borrows:borrow_update' card.no %}">

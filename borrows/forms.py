@@ -11,15 +11,6 @@ from home import settings
 from borrows.models import Borrower
 from sim.models import Sim
 
-def get_sim_choices(): 
-    # you place some logic here 
-    sim_choices = [(None,'請選擇')]
-    sim_choices +=[(m.sim_id, m.number) for m in Sim.objects.filter(status="1").all()]
-
-    # sim_choices = [(m.sim_id, m.number) for m in Sim.objects.all()]
-    print "exeute"
-    return sim_choices
-
 class BorrowForm(ModelForm):
     number = forms.ModelChoiceField(
         label="Sim卡", 
