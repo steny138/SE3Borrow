@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages,auth
@@ -52,7 +52,8 @@ def borrow_add(request):
         return redirect('/borrow/')
     return render(request, 'borrow_new.html', {'form':form})
 
-@login_required
+
+@user_passes_test(lambda u: u.is_superuser)
 def borrow_update(request, pk):
     borrow= get_object_or_404(Borrower, pk=pk)
     form = BorrowForm(request.POST or None, instance=borrow)
@@ -65,7 +66,7 @@ def borrow_update(request, pk):
         return redirect('/borrow/')
     return render(request, 'borrow_new.html', {'form':form})
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def borrow_delete(request, pk):
     borrow= get_object_or_404(Borrower, pk=pk)
     form = BorrowForm(request.POST or None, instance=borrow)
