@@ -75,7 +75,7 @@ def borrow_delete(request, pk):
 
     if request.method=='POST' and form.is_valid():
         borrow.delete()
-        sim = Sim.objects.get(number= form.cleaned_data["number"])
+        sim = form.cleaned_data["number"]
         sim.status = "1"
         sim.save()
 
