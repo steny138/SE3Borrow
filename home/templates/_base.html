@@ -10,6 +10,7 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>租借服務</title>
     {% block header %}{% endblock %}
@@ -30,8 +31,8 @@
             <div id="navbar" class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
-	                <li><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
-	                <li><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
+                    <li><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
+                    <li><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
                 </ul>
                <!--  <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
@@ -52,7 +53,7 @@
             </ul>
         </div>
         <div id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        	{% bootstrap_messages %}
+            {% bootstrap_messages %}
             {% block content %}{% endblock %}
         </div>
     </div>
@@ -82,16 +83,34 @@
             
             if($('#navbar ul.navbar-right li.active').length < 1)
             {
-            	$('#navbar ul.navbar-right li:first').addClass('active');
+                $('#navbar ul.navbar-right li:first').addClass('active');
             }
 
             if($('#sidebar ul.nav li.active').length < 1)
             {
-            	$('#navbar ul.navbar-right li:first').addClass('active');
+                $('#navbar ul.navbar-right li:first').addClass('active');
                 $('#sidebar ul.nav li:first').addClass('active');
             }
+
+
         })
     </script>
+    <script type="text/javascript">
+        $(function(){
+            $( ".datepicker" ).datepicker({
+                format: "yyyy/mm/dd",
+                startDate: "2017/07/06",
+                endDate: "2018/07/06",
+                todayBtn: "linked",
+                language: "zh-TW",
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.js" type="text/javascript"> </script>
+    <script src="{% static 'js/moment.js' %}" type="text/javascript"> </script>
+    <script src="{% static 'js/moment-with-locales.js' %}" type="text/javascript"> </script>
 </body>
 
 </html>
