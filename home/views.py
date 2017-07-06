@@ -32,4 +32,5 @@ def logout(request):
     if request.user.is_authenticated(): 
         print "processing"
         auth.logout(request)
+        return redirect('/login/')
     return redirect('/')
