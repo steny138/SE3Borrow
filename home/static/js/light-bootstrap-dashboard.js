@@ -27,12 +27,7 @@ $(document).ready(function(){
     
     // check if there is an image set for the sidebar's background
     lbd.checkSidebarImage();
-    
-    // Init navigation toggle for small screens   
-    if(window_width <= 991){
-        lbd.initRightMenu();   
-    }
-     
+        
     //  Activate the tooltips   
     $('[rel="tooltip"]').tooltip();
 
