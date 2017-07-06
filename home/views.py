@@ -22,8 +22,10 @@ def login(request):
     if user is not None and user.is_active:
         print "is_active"
         auth.login(request, user)
-        if request.POST.get('next', '') is not None:
-            return redirect(request.POST.get('next', ''))
+        next_page = request.GET['next']
+        
+        if next_page:
+            return redirect(next_page)
         else:
             return redirect('/index/')
         
