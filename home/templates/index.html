@@ -1,14 +1,76 @@
-{% extends "_base.html" %} 
+{% extends "_base.html" %} {# Load the tag library #} {% load bootstrap3 %} 
 
-{# Load the tag library #} 
-{% load bootstrap3 %}
+{% load static %}
+
+
+{% block header %}
+	<!-- Animation library for notifications   -->
+    <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="{% static 'css/light-bootstrap-dashboard.css' %}" rel="stylesheet"/>
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+{% endblock %}
+
 
 {% block content %}
-<h1 class="page-header">
-                {% bootstrap_label "歡迎！" %}
-            </h1>
-<div>
-    {% bootstrap_icon "star" %} 這是首頁
+{% for row in chart_rows %}
+<div class="row">
+	{% for chart in row %}  
+    <div class="col-md-{{chart.size}}">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">{{chart.title}}</h4>
+                <p class="category">{{chart.desp}}</p>
+            </div>
+            <div class="content">
+                <div id="{{chart.id}}" class="ct-chart ct-perfect-fourth"></div>
+                <div class="footer">
+                    <!-- <div class="legend">
+                    	{% for item in chart.items %}  
+                        	<i class="fa fa-circle text-{{item.color}}}"></i> {{item.name}}
+                        {% endfor %}
+                    </div> -->
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-clock-o"></i> {{chart.time}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+{% endfor %}
 
+<!--  Charts Plugin -->
+<script src="{% static 'js/chartist.min.js' %}"></script>
+
+<!-- Light Bootstrap Table Core javascript and methods for purpose -->
+<script src="{% static 'js/light-bootstrap-dashboard.js' %}"></script>
+<script type="text/javascript">
+var chart = {
+    initChartist: function() {
+    	var series = [];
+    	var labels = [];
+
+    	{% for row in chart_rows %}  
+			{% for chart in row %}
+				labels = {{chart.labels|safe}};
+				series = {{chart.series|safe}};
+
+				Chartist.Pie('#{{chart.id}}', {
+		            labels: labels,
+		            series: series
+		        });
+		    {% endfor %}
+	    {% endfor %}
+    }
+};
+$(document).ready(function() {
+    chart.initChartist();
+});
+</script>
 {% endblock %}
