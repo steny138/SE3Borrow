@@ -22,7 +22,11 @@ def login(request):
     if user is not None and user.is_active:
         print "is_active"
         auth.login(request, user)
-        return redirect('/index/')
+        if request.POST.get('next', '') is not None:
+            return redirect(request.POST.get('next', ''))
+        else:
+            return redirect('/index/')
+        
     else:
         return render(request, 'login.html') 
 
@@ -32,5 +36,5 @@ def logout(request):
     if request.user.is_authenticated(): 
         print "processing"
         auth.logout(request)
-        return redirect('/login/')
+        return redirect('/accounts/login/')
     return redirect('/')
