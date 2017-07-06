@@ -49,13 +49,13 @@ def __operate_chart(simcards):
     chart["time"] = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     chart["items"] = []
     
-    count = 1
+    count = 97
     labels = []
     series = []
     for key in res:
-        labels.append(key)
+        labels.append("%3.0f%%" % ((len(res[key])/1.0/len(simcards))*100//1.0))
         series.append(len(res[key]))
-        chart["items"].append({ "name":key, "color":count})
+        chart["items"].append({ "name":key, "color":chr(count)})
         count += 1
 
     chart["labels"] = json.dumps(labels)
@@ -77,13 +77,13 @@ def __sim_status_chart(simcards):
     chart["time"] = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     chart["items"] = []
     
-    count = 1
+    count = 97
     labels = []
     series = []
     for key in res:
-        labels.append(key)
+        labels.append("%3.0f%%" % ((len(res[key])/1.0/len(simcards))*100//1.0))
         series.append(len(res[key]))
-        chart["items"].append({ "name":key, "color":count})
+        chart["items"].append({ "name":key, "color":chr(count)})
         count += 1
 
     chart["labels"] = json.dumps(labels)

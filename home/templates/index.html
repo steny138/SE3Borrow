@@ -28,11 +28,11 @@
             <div class="content">
                 <div id="{{chart.id}}" class="ct-chart ct-perfect-fourth"></div>
                 <div class="footer">
-                    <!-- <div class="legend">
-                    	{% for item in chart.items %}  
-                        	<i class="fa fa-circle text-{{item.color}}}"></i> {{item.name}}
+                    <div class="legend">
+                    	{% for item in chart.items %}
+                        	<i class="fa fa-circle pie-{{item.color}}"></i> {{item.name}}
                         {% endfor %}
-                    </div> -->
+                    </div>
                     <hr>
                     <div class="stats">
                         <i class="fa fa-clock-o"></i> {{chart.time}}
