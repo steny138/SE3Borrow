@@ -22,7 +22,7 @@ def login(request):
     if user is not None and user.is_active:
         print "is_active"
         auth.login(request, user)
-        next_page = request.GET['next']
+        next_page = request.GET.get('next', '')
         
         if next_page:
             return redirect(next_page)
