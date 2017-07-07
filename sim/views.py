@@ -10,10 +10,12 @@ from django.http import HttpResponse
 from sim.models import Sim
 from sim.forms import SimForm
 
+from home.decorator import super_login_required
+
 def sim(request):
     return render(request, 'sim.html', {"sim_cards" : Sim.objects.all()})
 
-@user_passes_test(lambda u: u.is_superuser)
+@super_login_required(redirect_url="/sim/")
 def sim_add(request):
     form = SimForm(request.POST or None)
     if form.is_valid():
@@ -23,7 +25,7 @@ def sim_add(request):
         return redirect('/sim/')
     return render(request, 'sim_new.html', {'form':form})
 
-@user_passes_test(lambda u: u.is_superuser)
+@super_login_required(redirect_url="/sim/")
 def sim_update(request, pk):
     sim= get_object_or_404(Sim, pk=pk)
     form = SimForm(request.POST or None, instance=sim)
@@ -32,7 +34,7 @@ def sim_update(request, pk):
         return redirect('/sim/')
     return render(request, 'sim_detail.html', {'form':form})
 
-@user_passes_test(lambda u: u.is_superuser)
+@super_login_required(redirect_url="/sim/")
 def sim_delete(request, pk):
     sim= get_object_or_404(Sim, pk=pk)
     form = SimForm(request.POST or None, instance=sim)

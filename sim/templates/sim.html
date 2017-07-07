@@ -30,7 +30,7 @@
         <tbody>
             {% for sim in sim_cards %}
             <tr>
-                <td><a target="blank" href="{% url 'sim:sim_update' sim.sim_id %}">{{sim.number}}</a></td>
+                <td><a href="{% url 'sim:sim_update' sim.sim_id %}">{{sim.number}}</a></td>
                 <td>{{sim.get_status_display}}</td>
                 <td>{{ sim.get_operate_display }}</td>
 
