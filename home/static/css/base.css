@@ -32,6 +32,31 @@ body {
 }
 
 /*
+ * Login add-ons
+ */
+.user-brand 
+{
+	color: #fff;
+    float: right!important;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 17px;
+    line-height: 20px;
+}
+
+.user-brand a
+{
+	color: #fff;
+ 	font-size: 17px;
+}
+
+.user-brand .user-small
+{
+	color: #F0FFFF;
+ 	font-size: 12px;
+}
+
+/*
  * Global add-ons
  */
 
@@ -115,7 +140,7 @@ body {
  */
 
 .main {
-  padding: 20px;
+  padding: 30px;
 }
 @media (min-width: 768px) {
   .main {
