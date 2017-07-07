@@ -2,6 +2,7 @@
 
 from django.views.decorators.cache import cache_page
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib import auth
 from datetime import datetime
 from django.http import HttpResponse
@@ -93,9 +94,7 @@ def __sim_status_chart(simcards):
     return chart
 
 def login(request):
-    print "login"
     if request.user.is_authenticated(): 
-        print "is_authenticated"
         return redirect('/index/')
 
     username = request.POST.get('username', '')
@@ -104,7 +103,6 @@ def login(request):
     user = auth.authenticate(username=username, password=password)
 
     if user is not None and user.is_active:
-        print "is_active"
         auth.login(request, user)
         next_page = request.GET.get('next', '')
         
@@ -116,11 +114,20 @@ def login(request):
     else:
         return render(request, 'login.html') 
 
-
 def logout(request):
-    print "logout"
     if request.user.is_authenticated(): 
-        print "processing"
         auth.logout(request)
         return redirect('/accounts/login/')
     return redirect('/')
+
+def set_password(request):
+    if not request.user.is_authenticated(): 
+        return redirect('/login/')
+
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    new_password = password = request.POST.get('password', '')
+
+    u = User.objects.get(username='john')
+    u.set_password('new password')
+    u.save()
