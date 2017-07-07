@@ -63,7 +63,27 @@ DATABASES = {
 * 建立對應： python manage.py makemigrate
 * 建立資料表： python manage.py migrate
 * 啟動：python manage.py runserver
+* 啟動Cache
+1. settings.py
+```
+# Cache in memory 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
+```
+2. view.py
+60 * 10 表示緩存10分鐘
+```
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 10)
+def index(request):
+	pass
+```
 ---
 Web 框架
 ### bootstrap
