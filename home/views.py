@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.views.decorators.cache import cache_page
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from datetime import datetime
@@ -12,6 +13,7 @@ from borrows.models import Borrower
 
 import json
 
+@cache_page(60 * 10)
 def index(request):
     # 取得Sim卡全部資料
     simcards = Sim.objects.all()
