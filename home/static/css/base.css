@@ -34,14 +34,21 @@ body {
 /*
  * Login add-ons
  */
-.user-brand 
+.user-brand
 {
-	color: #fff;
-    float: right!important;
-    height: 50px;
-    padding: 15px 15px;
-    font-size: 17px;
-    line-height: 20px;
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.user-brand {
+		display: block;
+		color: #fff;
+	    float: right!important;
+	    height: 50px;
+	    padding: 15px 15px;
+	    font-size: 17px;
+	    line-height: 20px;
+	}
 }
 
 .user-brand a

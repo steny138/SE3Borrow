@@ -27,11 +27,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">SE3 借東西大會</a>
+                <a class="navbar-brand" href="/">SE3 租借服務</a>
             </div>
             <form class="user-brand">
                 {% if request.user.is_authenticated %}
-                	{{request.user.username}} 您好
+                	{{request.user.username}}，您好
                 	<a class="user-small" href="{% url 'logout' %}">切換帳號</a>
 				{% else %}
 					<a class="user-small" href="{% url 'login' %}">Sign in</a>
@@ -39,9 +39,17 @@
             </form>
             <div id="navbar" class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
-                    <li><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
-                    <li><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
+                	<li>
+                	{% if request.user.is_authenticated %}
+                		<a data-category="account" class="user-small" href="{% url 'logout' %}">{{request.user.username}}，您好 ｜ 
+	                	切換帳號</a>
+					{% else %}
+						<a data-category="account" class="user-small" href="{% url 'login' %}">Sign in</a>
+					{% endif %}
+					</li>
+                    <li class="active menu"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
+                    <li class="menu"><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
+                    <li class="menu"><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
                 </ul>
             </div>
         </div>
@@ -49,9 +57,9 @@
     <div class="container-fluid">
         <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
-                <li><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
-                <li><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
+                <li class="menu active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
+                <li class="menu"><a data-category="borrow" href="/borrow/">租借Sim卡</a></li>
+                <li class="menu"><a data-category="sim" href="/sim/">Sim卡總覽</a></li>
             </ul>
             <ul class="nav nav-sidebar hidden">
                 <li><a href="">Nav item</a></li>
@@ -69,7 +77,7 @@
             $('#sidebar ul.nav li').removeClass('active');
             $('#navbar ul.navbar-right li').removeClass('active');
 
-            $('#navbar ul.navbar-right li a').each(function(){
+            $('#navbar ul.navbar-right li.menu a').each(function(){
                 var $this = $(this);
                 // if the current path is like this link, make it active
                 if(current.indexOf($this.data('category')) !== -1){
@@ -78,7 +86,7 @@
                 }
             });
 
-            $('#sidebar ul.nav li a').each(function(){
+            $('#sidebar ul.nav li.menu a').each(function(){
                 var $this = $(this);
                 // if the current path is like this link, make it active
                 if(current.indexOf($this.data('category')) !== -1){
@@ -87,18 +95,16 @@
                 }
             });
             
-            if($('#navbar ul.navbar-right li.active').length < 1)
+            if($('#navbar ul.navbar-right li.menu.active').length < 1)
             {
-                $('#navbar ul.navbar-right li:first').addClass('active');
+                $('#navbar ul.navbar-right li.menu:first').addClass('active');
             }
 
             if($('#sidebar ul.nav li.active').length < 1)
             {
-                $('#navbar ul.navbar-right li:first').addClass('active');
-                $('#sidebar ul.nav li:first').addClass('active');
+                $('#navbar ul.navbar-right li.menu:first').addClass('active');
+                $('#sidebar ul.nav li.menu:first').addClass('active');
             }
-
-
         })
     </script>
     <script type="text/javascript">
