@@ -11,6 +11,7 @@ from borrows.models import Borrower
 from borrows.forms import BorrowForm
 
 from home import settings
+from home.decorator import super_login_required
 
 from sim.models import Sim
 
@@ -53,7 +54,7 @@ def borrow_add(request):
     return render(request, 'borrow_new.html', {'form':form})
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@super_login_required(redirect_url="/borrow/")
 def borrow_update(request, pk):
     borrow= get_object_or_404(Borrower, pk=pk)
     form = BorrowForm(request.POST or None, instance=borrow)
@@ -66,7 +67,7 @@ def borrow_update(request, pk):
         return redirect('/borrow/')
     return render(request, 'borrow_new.html', {'form':form})
 
-@user_passes_test(lambda u: u.is_superuser)
+@super_login_required(redirect_url="/borrow/")
 def borrow_delete(request, pk):
     borrow= get_object_or_404(Borrower, pk=pk)
     form = BorrowForm(request.POST or None, instance=borrow)
